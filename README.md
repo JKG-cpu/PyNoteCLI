@@ -3,10 +3,4 @@
 
 ## How to Install
 
-```bash
-pip install pynotecli
-```
 
-```bash
-
-```
