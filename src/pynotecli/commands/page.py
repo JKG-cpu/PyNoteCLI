@@ -1,16 +1,15 @@
 # all the pynote page commands
 import typer
+from typing import Literal
+
+from ..core import create_page
 
 app = typer.Typer()
 
 
 @app.command()
-def create(page_name: str, checklist: bool = typer.Option(False)) -> None:
-    if checklist:
-        print(f"Creating {page_name} as a checklist")
-
-    else:
-        print(f"Creating {page_name} as a page")
+def create(page_name: str, checklist: bool = typer.Option(False), text_type: Literal["md", "txt"] = "md") -> None:
+    create_page(page_name = page_name, is_checklist = checklist, text_type = text_type)
 
 
 @app.command()

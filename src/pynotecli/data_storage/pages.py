@@ -5,6 +5,9 @@ from dataclasses import dataclass
 from ..dataclasses import Page
 
 
+__all__ = ["PageDB"]
+
+
 class PageDB:
     def __init__(self):
         self.base_dir = Path(__file__).resolve().parents[1]
