@@ -1,4 +1,3 @@
-## Idea
 A Python CLI application that holds all your notes. There will be 
 -  Different Formats (text, markdown)
 -  A simple command
