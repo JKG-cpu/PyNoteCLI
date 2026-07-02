@@ -1,7 +1,18 @@
 [project]
 name = "pynotecli"
 version = "0.1.0"
-description = "Add your description here"
+description = "A Python CLI application that you can use to handle all your notes (in markdown and text formatting!)"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "rich>=15.0.0",
+    "textual>=8.2.8",
+    "typer>=0.26.8",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+pynote = "pynotecli.main:main"

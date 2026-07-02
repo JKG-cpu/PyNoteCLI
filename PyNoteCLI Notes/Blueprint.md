@@ -118,9 +118,16 @@ NOTES_DIR.mkdir(exist_ok=True)
 
 Gonna use `textual` + `rich` for the TUI. Gonna use `Typer` for the CLI.
 
+##### Folders
+1. CLI (Typer)
+2. Data Storage (SQLite)
+3. TUI (Textul)
+4. Core Logic
+5. Commands
+
 ---
 ## Todo
 1.  Create basic file setup
 2.  Learn how to use Typer
 3.  Setup the entry point
-	1. Include 1 - 3 commands
+	1. Include 1 - 3 commands 

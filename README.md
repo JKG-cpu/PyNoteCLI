@@ -1,5 +1,5 @@
 # PyNoteCLI
- A Python CLI application that you can use to handle all your notes (in markdown and text formatting!)
+A Python CLI application that you can use to handle all your notes (in markdown and text formatting!)
 
 ## How to Install
 
