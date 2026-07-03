@@ -143,16 +143,13 @@ class PageDB:
         conn.commit()
         conn.close()
 
-    def delete_page_by_name(self, page_name: str) -> int:
+    def delete_page_by_name(self, page_name: str) -> list[Page] | None:
         pages = self.get_page_by_name(page_name)
 
-        conn = self._connect()
-        cur = conn.cursor()
+        if not pages:
+            return None
 
-        for page in pages:
-            cur.execute("DELETE FROM pages WHERE page_id = ?", (page.page_id,))
+        if len(pages) != 1:
+            return pages
 
-        conn.commit()
-        conn.close()
-
-        return len(pages)
+        self.delete_page(pages[0].page_id)

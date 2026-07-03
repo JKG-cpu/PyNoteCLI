@@ -2,6 +2,7 @@ from rich.console import Console
 
 __all__ = ["Text"]
 
+
 class Text:
     console = Console()
 
@@ -16,7 +17,7 @@ class Text:
     @staticmethod
     def success(text: str):
         Text.console.print(f"[bold green]{text}[/bold green]")
-    
+
     @staticmethod
     def info(text: str):
         Text.console.print(f"[bold cyan]{text}[/bold cyan]")

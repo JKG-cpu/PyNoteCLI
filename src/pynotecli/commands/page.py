@@ -2,19 +2,23 @@
 import typer
 from typing import Literal
 
-from ..core import create_page
+from ..core import create_page, delete_page, list_pages, display_page
 
 app = typer.Typer()
 
 
 @app.command()
-def create(page_name: str, checklist: bool = typer.Option(False), text_type: Literal["md", "txt"] = "md") -> None:
-    create_page(page_name = page_name, is_checklist = checklist, text_type = text_type)
+def create(
+    page_name: str,
+    checklist: bool = typer.Option(False),
+    text_type: Literal["md", "txt"] = "md",
+) -> None:
+    create_page(page_name=page_name, is_checklist=checklist, text_type=text_type)
 
 
 @app.command()
-def delete(page_name: str) -> None:
-    print(f"Deleting page {page_name}")
+def delete(page: str) -> None:
+    delete_page(page)
 
 
 @app.command()
@@ -23,13 +27,13 @@ def rename(page_name: str, new_name: str) -> None:
 
 
 @app.command(name="list")
-def list_pages() -> None:
-    print("Listing notes")
+def list_page() -> None:
+    list_pages()
 
 
 @app.command()
 def show(page_name: str) -> None:
-    print("Show Page")
+    display_page(page_name)
 
 
 @app.command()

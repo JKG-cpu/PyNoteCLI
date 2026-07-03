@@ -1,6 +1,8 @@
 ### To Do's
 - [ ] Edit database path to use `platformdirs`
 - [ ] Create and save file paths when creating pages
+- [ ] Display page => need file paths + notes
+- [ ]  Edit pages => ***Need to create a CLI text editor (think of vim)***
 
 ### 2026-07-02
 Added command's for
@@ -10,11 +12,9 @@ Added command's for
 - [x] Need to create a basic SQL database first in a temp folder, then *(when publishing)*, add the `platformdirs` module.
 
 Gonna start working on the page management after. Need to 
-- [ ]  Allow page creations
+- [x]  Allow page creations
 - [x]  Allow different types of pages (normal / checklist, text / markdown)
-- [ ]  Allow page deletions
-- [ ]  List pages
-- [ ]  Display pages
-- [ ]  Edit pages => ***Need to create a CLI text editor (think of vim)***
+- [x]  Allow page deletions
+- [x]  List pages
 
 ***WHEN A PAGE IS CREATED, SET FILE PATH TO N/A => NEED TO REMOVE AND CREATE FILES LATER***
