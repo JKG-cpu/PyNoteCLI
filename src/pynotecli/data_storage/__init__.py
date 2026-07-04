@@ -1,1 +1,1 @@
-from .pages import *
+from .page_storage import *

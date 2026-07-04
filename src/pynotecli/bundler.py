@@ -1,6 +1,7 @@
 import typer
 
 from .commands import config_app, page_app
+from .core import setup
 
 app = typer.Typer()
 
@@ -18,3 +19,8 @@ def main(ctx: typer.Context):
 @app.command()
 def tui() -> None:
     print("Opening TUI")
+
+
+@app.command(name="setup")
+def stp() -> None:
+    setup()

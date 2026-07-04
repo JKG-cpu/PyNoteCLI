@@ -17,6 +17,7 @@ You will be able to
 pynote
 pynote --help
 pynote tui # Opens TUI (textual + rich?)
+pynote setup # Sets up paths and data storage
 
 # Config / Settings
 pynote config show

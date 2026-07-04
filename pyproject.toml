@@ -5,6 +5,7 @@ description = "A Python CLI application that you can use to handle all your note
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "platformdirs>=4.10.0",
     "rich>=15.0.0",
     "textual>=8.2.8",
     "typer>=0.26.8",

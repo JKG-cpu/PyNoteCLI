@@ -1,8 +1,10 @@
 ### To Do's
-- [ ] Edit database path to use `platformdirs`
-- [ ] Create and save file paths when creating pages
+- [x] Edit database path to use `platformdirs`
+- [x] Setup folders with `pynote setup`
+- [x] Create and save file paths when creating pages
 - [ ] Display page => need file paths + notes
-- [ ]  Edit pages => ***Need to create a CLI text editor (think of vim)***
+- [ ] Edit pages => ***Need to create a CLI text editor (think of vim)***
+- [ ] Edit pages data class so file_path is a Path object
 
 ### 2026-07-02
 Added command's for
@@ -18,3 +20,11 @@ Gonna start working on the page management after. Need to
 - [x]  List pages
 
 ***WHEN A PAGE IS CREATED, SET FILE PATH TO N/A => NEED TO REMOVE AND CREATE FILES LATER***
+
+### 2026-07-03
+Finished
+- [x] Edit database path to use `platformdirs`
+- [x] Setup folders with `pynote setup`
+- [x] Create and save file paths when creating pages
+
+Need to fix the data class to have file_path (for *pages*) be a Path object

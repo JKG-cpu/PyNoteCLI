@@ -3,6 +3,7 @@ from pathlib import Path
 from dataclasses import dataclass
 
 from ..dataclasses import Page
+from ..paths import DATABASE_DIR, PAGES_DIR
 
 
 __all__ = ["PageDB"]
@@ -10,10 +11,10 @@ __all__ = ["PageDB"]
 
 class PageDB:
     def __init__(self):
-        self.base_dir = Path(__file__).resolve().parents[1]
-        self.db_path = self.base_dir / "database" / "pages.db"
+        self.base_dir = DATABASE_DIR
+        self.db_path = self.base_dir / "pages.db"
 
-        self.db_path.parent.mkdir(parents=True, exist_ok=True)
+        self.db_path.touch(exist_ok = True)
 
         self._init_db()
 
@@ -37,25 +38,33 @@ class PageDB:
         conn.commit()
         conn.close()
 
-    def create_page(
-        self, page_name: str, page_type: str, text_type: str, file_path: str
-    ) -> int:
+    def create_page(self, page_name: str, page_type: str, text_type: str) -> tuple[int, Path]:
         conn = self._connect()
         cur = conn.cursor()
 
         cur.execute(
             """
-        INSERT INTO pages (page_name, page_type, text_type, file_path)
-        VALUES (?, ?, ?, ?)
-        """,
-            (page_name, page_type, text_type, file_path),
+            INSERT INTO pages (page_name, page_type, text_type, file_path)
+            VALUES (?, ?, ?, ?)
+            """,
+            (page_name, page_type, text_type, "")  # temp placeholder
         )
 
         conn.commit()
+
         page_id = cur.lastrowid
+
+        file_path = PAGES_DIR / f"{page_name}_{page_id}"
+
+        cur.execute(
+            "UPDATE pages SET file_path = ? WHERE page_id = ?",
+            (str(file_path), page_id)
+        )
+
+        conn.commit()
         conn.close()
 
-        return page_id
+        return page_id, file_path
 
     def get_page_by_id(self, page_id: int) -> Page | None:
         conn = self._connect()
@@ -134,7 +143,10 @@ class PageDB:
             for r in rows
         ]
 
-    def delete_page(self, page_id: int) -> None:
+    def delete_page(self, page_id: int) -> Path:
+        # Get Page Filepath to return
+        p = self.get_page_by_id(page_id)
+
         conn = self._connect()
         cur = conn.cursor()
 
@@ -143,7 +155,9 @@ class PageDB:
         conn.commit()
         conn.close()
 
-    def delete_page_by_name(self, page_name: str) -> list[Page] | None:
+        if p: return p.file_path
+
+    def delete_page_by_name(self, page_name: str) -> list[Page] | Path | None:
         pages = self.get_page_by_name(page_name)
 
         if not pages:
@@ -153,3 +167,19 @@ class PageDB:
             return pages
 
         self.delete_page(pages[0].page_id)
+
+    # Clear Data
+    def clear_data(self) -> None:
+        conn = self._connect()
+        cur = conn.cursor()
+
+        cur.execute("""
+            DROP TABLE IF EXISTS pages
+        """)
+
+        conn.commit()
+        conn.close()
+    
+    def clear_file(self) -> None:
+        with open(self.db_path, "wb") as file:
+            pass
