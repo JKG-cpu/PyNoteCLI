@@ -33,3 +33,14 @@ Need to fix the data class to have file_path (for *pages*) be a Path object
 Changed the code so pages were deleted (just needed to do `Path(Page.file_path)`).
 
 Also added a new command which clears the database: `pynote clear`.
+
+### 2026-07-05
+Gonna add commands for
+- `pynote note add` 
+- `pynote note add "..." --page "MyPage"` 
+- `pynote note edit`
+- `pynote note delete`
+- `pynote note move`
+- `pynote note list`
+- `pynote node list --page "MyPage"`
+
