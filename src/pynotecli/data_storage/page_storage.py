@@ -143,7 +143,7 @@ class PageDB:
             for r in rows
         ]
 
-    def delete_page(self, page_id: int) -> Path:
+    def delete_page(self, page_id: int) -> Path | None:
         # Get Page Filepath to return
         p = self.get_page_by_id(page_id)
 
@@ -166,10 +166,12 @@ class PageDB:
         if len(pages) != 1:
             return pages
 
-        self.delete_page(pages[0].page_id)
+        return self.delete_page(pages[0].page_id)
 
     # Clear Data
-    def clear_data(self) -> None:
+    def clear_data(self) -> list[Page]:
+        pages = self.get_all()
+
         conn = self._connect()
         cur = conn.cursor()
 
@@ -179,6 +181,8 @@ class PageDB:
 
         conn.commit()
         conn.close()
+
+        return pages
     
     def clear_file(self) -> None:
         with open(self.db_path, "wb") as file:

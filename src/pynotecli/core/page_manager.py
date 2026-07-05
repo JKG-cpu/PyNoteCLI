@@ -5,7 +5,7 @@ from ..data_storage import PageDB
 from ..dataclasses import Page
 from ..paths import PAGES_DIR
 
-__all__ = ["create_page", "delete_page", "list_pages", "display_page"]
+__all__ = ["create_page", "delete_page", "list_pages", "display_page", "clear_data"]
 
 
 class PageManager:
@@ -54,24 +54,39 @@ class PageManager:
         with Text.status("Deleting Page...", style = "bold cyan"):
             if value.isdigit():
                 page = self.pagedb.delete_page(int(value))
-                if page: self.delete_page_path(page)
-                Text.text("✓ Page removed.", style = "bold cyan")
+
+                if page:
+                    self.delete_page_path(Path(page))
+                    Text.text("✓ Page removed.", style = "bold cyan")
+                
+                else:
+                    Text.error("Page not found")
+                
                 return
 
             r_value = self.pagedb.delete_page_by_name(value)
 
-        if r_value:
+        if isinstance(r_value, list):
             Text.info(
                 "Couldn't remove page (multiple pages found). Please use the ID."
             )
-            self.display_pages(pages=r_value)
+            self.display_pages(r_value)
+
+        elif isinstance(r_value, (str, Path)):
+            self.delete_page_path(Path(r_value))
+            Text.text("✓ Page removed.", style="bold cyan")
 
         else:
-            Text.text("✓ Page removed.", style = "bold cyan")
+            Text.error("Page not found.")
 
     def get_all_pages(self) -> list[Page]:
         return self.pagedb.get_all()
 
+    def clear_database(self) -> None:
+        pages = self.pagedb.clear_data()
+
+        for p in pages:
+            self.delete_page_path(Path(p.file_path))
 
 p = PageManager()
 
@@ -91,3 +106,6 @@ def list_pages() -> None:
 
 def display_page(page: str) -> None:
     p.display_page(page=page)
+
+def clear_data() -> None:
+    p.clear_database()

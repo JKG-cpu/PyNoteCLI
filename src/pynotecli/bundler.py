@@ -1,7 +1,7 @@
 import typer
 
 from .commands import config_app, page_app
-from .core import setup
+from .core import setup, clear_data, Text
 
 app = typer.Typer()
 
@@ -24,3 +24,18 @@ def tui() -> None:
 @app.command(name="setup")
 def stp() -> None:
     setup()
+
+
+@app.command()
+def clear() -> None:
+    user_input = Text.warning("Are you sure you want to clear all data (Y/N)?", is_input = True)
+
+    if user_input:
+        if user_input.lower() == "y" or user_input.lower().startswith("y"):
+            clear_data()
+
+        else:
+            return
+
+    else:
+        Text.info("User input not caught, exitting...")

@@ -4,7 +4,7 @@
 - [x] Create and save file paths when creating pages
 - [ ] Display page => need file paths + notes
 - [ ] Edit pages => ***Need to create a CLI text editor (think of vim)***
-- [ ] Edit pages data class so file_path is a Path object
+- [x] Edit pages data class so file_path is a Path object
 
 ### 2026-07-02
 Added command's for
@@ -28,3 +28,8 @@ Finished
 - [x] Create and save file paths when creating pages
 
 Need to fix the data class to have file_path (for *pages*) be a Path object
+
+### 2026-07-04
+Changed the code so pages were deleted (just needed to do `Path(Page.file_path)`).
+
+Also added a new command which clears the database: `pynote clear`.

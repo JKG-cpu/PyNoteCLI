@@ -18,6 +18,7 @@ pynote
 pynote --help
 pynote tui # Opens TUI (textual + rich?)
 pynote setup # Sets up paths and data storage
+pynote clear # clears all the data
 
 # Config / Settings
 pynote config show

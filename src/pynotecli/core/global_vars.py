@@ -24,6 +24,15 @@ class Text:
         Text.console.print(f"[bold cyan]{text}[/bold cyan]")
 
     @staticmethod
+    def warning(text: str, is_input: bool) -> None | str:
+        if is_input:
+            Text.console.print(f"[bold yellow]{text}[/bold yellow]", end = " > ")
+            return input()
+
+        else:
+            Text.console.print(f"[bold yellow]{text}[/bold yellow]")
+
+    @staticmethod
     def progress() -> Progress:
         return Progress(console=Text.console)
 
