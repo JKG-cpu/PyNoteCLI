@@ -44,3 +44,5 @@ Gonna add commands for
 - `pynote note list`
 - `pynote node list --page "MyPage"`
 
+### 2026-07-08
+Gonna rework the pages + notes so that each page file is just json. That way it should be easier to add / manage notes.
