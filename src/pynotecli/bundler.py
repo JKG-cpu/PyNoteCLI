@@ -28,7 +28,9 @@ def stp() -> None:
 
 @app.command()
 def clear() -> None:
-    user_input = Text.warning("Are you sure you want to clear all data (Y/N)?", is_input = True)
+    user_input = Text.warning(
+        "Are you sure you want to clear all data (Y/N)?", is_input=True
+    )
 
     if user_input:
         if user_input.lower() == "y" or user_input.lower().startswith("y"):

@@ -12,7 +12,7 @@ def setup_storage() -> Path:
     # Create Directories
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     DATABASE_DIR.mkdir(parents=True, exist_ok=True)
-    PAGES_DIR.mkdir(parents = True, exist_ok = True)
+    PAGES_DIR.mkdir(parents=True, exist_ok=True)
 
     # Generate config
     if not CONFIG_FILE.exists():
@@ -24,7 +24,7 @@ def setup_storage() -> Path:
 def setup() -> None:
     with Text.status("Setting up data folders and files...", style="bold cyan"):
         data_dir = setup_storage()
-    
-    Text.text("✓ Setup complete!", style = "bold cyan")
+
+    Text.text("✓ Setup complete!", style="bold cyan")
 
     Text.success(f"PyNote data setup at {data_dir}")

@@ -2,8 +2,13 @@ from pathlib import Path
 from platformdirs import user_data_dir
 
 __all__ = [
-    "APP_NAME", "APP_AUTHOR", 
-    "DATA_DIR", "DATABASE_DIR", "PAGES_DIR", "CONFIG_FILE"]
+    "APP_NAME",
+    "APP_AUTHOR",
+    "DATA_DIR",
+    "DATABASE_DIR",
+    "PAGES_DIR",
+    "CONFIG_FILE",
+]
 
 APP_NAME = "PyNoteCLI"
 APP_AUTHOR = "JKG"

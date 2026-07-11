@@ -1,6 +1,5 @@
 import sqlite3
 from pathlib import Path
-from dataclasses import dataclass
 
 from ..dataclasses import Page
 from ..paths import DATABASE_DIR, PAGES_DIR
@@ -14,7 +13,7 @@ class PageDB:
         self.base_dir = DATABASE_DIR
         self.db_path = self.base_dir / "pages.db"
 
-        self.db_path.touch(exist_ok = True)
+        self.db_path.touch(exist_ok=True)
 
         self._init_db()
 
@@ -38,7 +37,9 @@ class PageDB:
         conn.commit()
         conn.close()
 
-    def create_page(self, page_name: str, page_type: str, text_type: str) -> tuple[int, Path]:
+    def create_page(
+        self, page_name: str, page_type: str, text_type: str
+    ) -> tuple[int, Path]:
         conn = self._connect()
         cur = conn.cursor()
 
@@ -47,18 +48,18 @@ class PageDB:
             INSERT INTO pages (page_name, page_type, text_type, file_path)
             VALUES (?, ?, ?, ?)
             """,
-            (page_name, page_type, text_type, "")  # temp placeholder
+            (page_name, page_type, text_type, ""),  # temp placeholder
         )
 
         conn.commit()
 
         page_id = cur.lastrowid
 
-        file_path = PAGES_DIR / f"{page_name}_{page_id}"
+        file_path = PAGES_DIR / f"{page_name}_{page_id}.json"
 
         cur.execute(
             "UPDATE pages SET file_path = ? WHERE page_id = ?",
-            (str(file_path), page_id)
+            (str(file_path), page_id),
         )
 
         conn.commit()
@@ -155,7 +156,8 @@ class PageDB:
         conn.commit()
         conn.close()
 
-        if p: return p.file_path
+        if p:
+            return p.file_path
 
     def delete_page_by_name(self, page_name: str) -> list[Page] | Path | None:
         pages = self.get_page_by_name(page_name)
@@ -183,7 +185,7 @@ class PageDB:
         conn.close()
 
         return pages
-    
+
     def clear_file(self) -> None:
-        with open(self.db_path, "wb") as file:
+        with open(self.db_path, "wb"):
             pass

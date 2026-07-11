@@ -1,9 +1,9 @@
 from pathlib import Path
+from json import dump
 
 from .global_vars import Text
 from ..data_storage import PageDB
-from ..dataclasses import Page
-from ..paths import PAGES_DIR
+from ..dataclasses import Page, PageJSON
 
 __all__ = ["create_page", "delete_page", "list_pages", "display_page", "clear_data"]
 
@@ -13,7 +13,7 @@ class PageManager:
         self.pagedb = PageDB()
 
     # Helpers
-    #region
+    # region
     def display_pages(self, pages: list[Page]) -> None:
         if not pages:
             Text.text("No pages to display.")
@@ -24,52 +24,52 @@ class PageManager:
 
     def display_page(self, page: str) -> None:
         Text.info("Will be implemented soon")
-    
-    def create_page_path(self, path: Path) -> None:
-        path.touch()
-    
+
+    def create_page_path(self, page_name: str, page_type: str, path: Path) -> None:
+        p = PageJSON(page_name=page_name, page_type=page_type)
+
+        with open(path, "w") as fp:
+            dump(p.to_dict(), fp, indent = 4)
+
     def delete_page_path(self, path: Path) -> None:
-        path.unlink(missing_ok = True)
-    #endregion
+        path.unlink(missing_ok=True)
+
+    # endregion
 
     def create_page(self, name: str, is_checklist: bool, text_type: str) -> None:
-        with Text.status("Creating Page...", style = "bold cyan"):
+        with Text.status("Creating Page...", style="bold cyan"):
             if is_checklist:
                 page_id, path = self.pagedb.create_page(
-                    page_name=name,
-                    page_type="checklist",
-                    text_type=text_type
+                    page_name=name, page_type="checklist", text_type=text_type
                 )
-                self.create_page_path(path)
+                self.create_page_path(name, "checklist", path)
 
             else:
                 page_id, path = self.pagedb.create_page(
                     page_name=name, page_type="normal", text_type=text_type
                 )
-                self.create_page_path(path)
+                self.create_page_path(name, "normal", path)
 
-        Text.text(f"✓ Created Page {name}\n    - ID: {page_id}", style = "bold cyan")
+        Text.text(f"✓ Created Page {name}\n    - ID: {page_id}", style="bold cyan")
 
     def delete_page(self, value: str) -> None:
-        with Text.status("Deleting Page...", style = "bold cyan"):
+        with Text.status("Deleting Page...", style="bold cyan"):
             if value.isdigit():
                 page = self.pagedb.delete_page(int(value))
 
                 if page:
                     self.delete_page_path(Path(page))
-                    Text.text("✓ Page removed.", style = "bold cyan")
-                
+                    Text.text("✓ Page removed.", style="bold cyan")
+
                 else:
                     Text.error("Page not found")
-                
+
                 return
 
             r_value = self.pagedb.delete_page_by_name(value)
 
         if isinstance(r_value, list):
-            Text.info(
-                "Couldn't remove page (multiple pages found). Please use the ID."
-            )
+            Text.info("Couldn't remove page (multiple pages found). Please use the ID.")
             self.display_pages(r_value)
 
         elif isinstance(r_value, (str, Path)):
@@ -87,6 +87,7 @@ class PageManager:
 
         for p in pages:
             self.delete_page_path(Path(p.file_path))
+
 
 p = PageManager()
 
@@ -106,6 +107,7 @@ def list_pages() -> None:
 
 def display_page(page: str) -> None:
     p.display_page(page=page)
+
 
 def clear_data() -> None:
     p.clear_database()

@@ -26,7 +26,7 @@ class Text:
     @staticmethod
     def warning(text: str, is_input: bool) -> None | str:
         if is_input:
-            Text.console.print(f"[bold yellow]{text}[/bold yellow]", end = " > ")
+            Text.console.print(f"[bold yellow]{text}[/bold yellow]", end=" > ")
             return input()
 
         else:
