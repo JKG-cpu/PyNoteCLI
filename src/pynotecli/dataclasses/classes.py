@@ -49,11 +49,13 @@ class PageJSON:
     # Adding Notes
     def add_new_note(self, name: str, desc: str) -> None:
         self.notes[self.get_available_id()] = Note(name=name, description=desc)
+        self.note_count += 1
 
     # Delete Notes
     def delete_note(self, id: int) -> None:
         self.deleted_ids.append(id)
         del self.notes[id]
+        self.note_count -= 1
 
     def delete_note_by_name(self, name: str) -> None | list[tuple[int, Note]]:
         pass
@@ -78,7 +80,7 @@ class PageJSON:
             note_count=data["note_count"],
             deleted_ids=deque(data["deleted_ids"]),
             notes={
-                note_id: Note.from_dict(note_data)
+                int(note_id): Note.from_dict(note_data)
                 for note_id, note_data in data["notes"].items()
             },
         )

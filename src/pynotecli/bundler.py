@@ -1,6 +1,6 @@
 import typer
 
-from .commands import config_app, page_app
+from .commands import config_app, page_app, note_app
 from .core import setup, clear_data, Text
 
 app = typer.Typer()
@@ -8,6 +8,7 @@ app = typer.Typer()
 # Add different sub commands
 app.add_typer(config_app, name="config")
 app.add_typer(page_app, name="page")
+app.add_typer(note_app, name="note")
 
 
 @app.callback(invoke_without_command=True)

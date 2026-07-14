@@ -29,7 +29,7 @@ class PageManager:
         p = PageJSON(page_name=page_name, page_type=page_type)
 
         with open(path, "w") as fp:
-            dump(p.to_dict(), fp, indent = 4)
+            dump(p.to_dict(), fp, indent=4)
 
     def delete_page_path(self, path: Path) -> None:
         path.unlink(missing_ok=True)
@@ -87,6 +87,12 @@ class PageManager:
 
         for p in pages:
             self.delete_page_path(Path(p.file_path))
+
+    def get_page_by_id(self, id: int) -> Page | None:
+        return self.pagedb.get_page_by_id(id)
+
+    def get_page_by_name(self, page_name: str) -> list[Page] | None:
+        return self.pagedb.get_page_by_name(page_name=page_name)
 
 
 p = PageManager()

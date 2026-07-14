@@ -51,8 +51,6 @@ pynote note edit 12
 
 pynote note delete 12
 
-pynote note move 12 --page "Archive"
-
 pynote note list
 
 pynote note list --page "Shopping"

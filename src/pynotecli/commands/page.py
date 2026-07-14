@@ -1,4 +1,3 @@
-# all the pynote page commands
 import typer
 from typing import Literal
 

@@ -1,8 +1,8 @@
 import json
 from pathlib import Path
-import time
 
-from ..paths import DATA_DIR, DATABASE_DIR, CONFIG_FILE, PAGES_DIR
+from ..paths import DATA_DIR, DATABASE_DIR, CONFIG_FILE, PAGES_DIR, BASE_NOTE_PAGE
+from ..dataclasses import PageJSON
 from .global_vars import CONFIG, Text
 
 __all__ = ["setup"]
@@ -17,6 +17,13 @@ def setup_storage() -> Path:
     # Generate config
     if not CONFIG_FILE.exists():
         CONFIG_FILE.write_text(json.dumps(CONFIG, indent=4), encoding="utf-8")
+
+    if not BASE_NOTE_PAGE.exists():
+        BASE_NOTE_PAGE.write_text(
+            json.dumps(
+                PageJSON(page_name="Base Notes", page_type="normal").to_dict(), indent=4
+            )
+        )
 
     return DATA_DIR
 

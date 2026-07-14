@@ -1,4 +1,3 @@
-# all the pynote config commands
 import typer
 
 app = typer.Typer()
