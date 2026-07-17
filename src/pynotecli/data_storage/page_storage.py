@@ -13,6 +13,9 @@ class PageDB:
         self.base_dir = DATABASE_DIR
         self.db_path = self.base_dir / "pages.db"
 
+        if not self.db_path.parent.exists():
+            return
+
         self.db_path.touch(exist_ok=True)
 
         self._init_db()

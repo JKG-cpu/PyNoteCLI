@@ -47,8 +47,6 @@ pynote note add "Buy milk"
 pynote note add "Buy milk" --page "Shopping"
 
 # Edit, delete, move by ID
-pynote note edit 12
-
 pynote note delete 12
 
 pynote note list

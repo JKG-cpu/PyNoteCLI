@@ -1,6 +1,6 @@
 import typer
 
-from ..core import add_note, delete_note, edit_note, list_notes
+from ..core import add_note, delete_note, list_notes
 
 app = typer.Typer()
 
@@ -12,11 +12,6 @@ def add(
     page: str = typer.Option(default=None),
 ):
     add_note(name=name, desc=desc, page=page)
-
-
-@app.command()
-def edit(name: str, page: str = typer.Option(default=None)):
-    edit_note(name=name, page=page)
 
 
 @app.command()
